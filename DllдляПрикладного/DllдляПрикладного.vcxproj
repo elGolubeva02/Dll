@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Header1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source1.c" />

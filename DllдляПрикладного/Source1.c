@@ -1,4 +1,5 @@
 #include "header.h"
+#include "header1.h"
 #include <strsafe.h>
 #define PATHDLL L"DLL.dll"
 #define PATHLIST L"Users.csv"
@@ -22,6 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DWORD w;
 	HINSTANCE FileHandle = CreateFile(L"1.csv", GENERIC_WRITE, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	TCHAR otvFile[512];
+	TCHAR BuferObmena[512];
 	for (size_t i = 0; i < count-1; i++)
 	{
 		users[i].f[wcslen(users[i].f)] = (WCHAR)';';
@@ -34,6 +36,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		WriteFile(FileHandle, users[i].g, wcslen(users[i].g) * sizeof(WCHAR), &w, NULL);
 
 		swprintf(otvFile, 512, TEXT("%d\r\n"), users[i].vozr);
+
+	//	swprintf(BuferObmena, 512, TEXT("%s;%s;%s;$s\0"), users[i].vozr);
+
+		
 		DWORD len = 0;
 		while (otvFile[len] != '\0')
 		{
@@ -146,5 +152,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		MessageBox(NULL, L"Что-то пошло не так", L"Информация", MB_OK);
 	}
+	ClipboardInputText(otvFile);
 	RegCloseKey(hKey3);
 }
